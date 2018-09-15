@@ -1,0 +1,6 @@
+{
+  "en": { "hello": "hello", "langCode": "Language Code:" },
+  "es": { "hello": "hola", "langCode": "Código de Lenguaje:" },
+  "ja": { "hello": "こんにちは", "langCode": "言語コード：" },
+  "ar": { "hello": "مرحبا", "langCode": "رمز اللغة:" }
+}

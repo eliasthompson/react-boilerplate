@@ -1,0 +1,8 @@
+--require babel-core/register
+--require test/test-setup.js
+--reporter spec
+--ui bdd
+--recursive
+-r jsdom-global/register
+./test/bootstrap.test.js
+./test/**/*.test.js

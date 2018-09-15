@@ -1,0 +1,12 @@
+{
+  "source": "./src",
+  "destination": "./docs",
+  "excludes": [
+    "./fixtures"
+  ],
+  "plugins": [
+    { "name": "esdoc-standard-plugin" },
+    { "name": "esdoc-jsx-plugin" },
+    { "name": "esdoc-ecmascript-proposal-plugin", "option": { "all": true } }
+  ]
+}
