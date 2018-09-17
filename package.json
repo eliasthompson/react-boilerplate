@@ -5,7 +5,13 @@
   "keywords": [
     "react",
     "redux",
+    "redux-saga",
+    "redux-router",
+    "styled-jsx",
     "webpack",
+    "eslint",
+    "mocha",
+    "esdoc",
     "boilerplate"
   ],
   "homepage": "https://github.com/eliasthompson/react-boilerplate",
