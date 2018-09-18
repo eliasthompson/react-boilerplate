@@ -6,10 +6,6 @@ import { persistStore, persistReducer } from 'redux-persist';
 import reducers from './reducers';
 import sagas from './sagas';
 
-/**
- * The Redux Saga middleware.
- * @type {Object}
- */
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   persistReducer({
@@ -24,14 +20,5 @@ const store = createStore(
 
 sagaMiddleware.run(sagas);
 
-/**
- * The Redux persistor.
- * @type {Object}
- */
 export const persistor = persistStore(store);
-
-/**
- * The Redux store.
- * @type {Object}
- */
 export default store;

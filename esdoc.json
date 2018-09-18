@@ -2,7 +2,7 @@
   "source": "./src",
   "destination": "./docs",
   "excludes": [
-    "./fixtures"
+    "store.js"
   ],
   "plugins": [
     { "name": "esdoc-standard-plugin" },

@@ -1,14 +1,14 @@
 
 /**
  * The Redux action type for updating the Config Redux slice.
- * @type {Object}
+ * @type {string}
  */
 export const UPDATE_CONFIG = 'UPDATE_CONFIG';
 
 
 /**
  * The Redux action type for storing the Config Redux slice.
- * @type {Object}
+ * @type {string}
  */
 export const STORE_CONFIG = 'STORE_CONFIG';
 
