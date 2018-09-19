@@ -9,7 +9,7 @@ import Container from './components/layout/Container';
 
 render(
   <Provider store={ store }>
-    <PersistGate loading={ null } persistor={ persistor }>
+    <PersistGate persistor={ persistor }>
       <BrowserRouter basename="/">
         <Container />
       </BrowserRouter>
