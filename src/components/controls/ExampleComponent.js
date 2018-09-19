@@ -20,11 +20,6 @@ export class ExampleComponent extends Component {
     if (props.match.params.lang !== props.lang) props.updateConfig({ lang: props.match.params.lang });
   }
 
-  /** This corrects the URL if there is a mismatch with the Redux state after an update. */
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.lang !== this.props.lang) this.props.history.replace(`/${this.props.lang}`);
-  }
-
   /** This method handles changing the language in the Config Redux slice. */
   handleLanguageChange() {
     const langs = _.keys(languages);
@@ -81,6 +76,14 @@ export class ExampleComponent extends Component {
         `}</style>
       </div>
     );
+  }
+
+  /**
+  * This corrects the URL if there is a mismatch with the Redux state after an update.
+  * @param {Object} prevProps - Previous props
+  */
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.lang !== this.props.lang) this.props.history.replace(`/${this.props.lang}`);
   }
 }
 
