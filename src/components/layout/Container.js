@@ -1,87 +1,103 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
+import Header from './Header';
 import Routes from '../Routes';
 import config from '../../../config.json';
 
 /**
  * A container layout component that sets document language based on Redux state.
- * @extends {React.Component}
+ * @param {Object} props - Component props
+ * @return {Array<React.Component>} returns array of React elements
  */
-export class Container extends Component {
-  /**
-   * This method renders the component.
-   * @return {Array<React.Component>} returns array of React elements
-   */
-  render() {
-    return [
-      <Helmet key="helmet" titleTemplate={ `%s | ${config.name}` } defaultTitle={ config.name }>
-        <html lang={ this.props.lang } />
-      </Helmet>,
-      <div key="container" className="container">
-        <Routes />
+export function Container(props) {
+  return [
+    <Helmet key="helmet" titleTemplate={ `%s | ${config.name}` } defaultTitle={ config.name }>
+      <html lang={ props.lang } />
+    </Helmet>,
 
-        <style jsx global>{`
-          @font-face {
-            font-family: 'Roboto';
-            font-weight: 200;
-            src: url('public/fonts/Roboto-Light.ttf') format('truetype');
-          }
+    <Header key="header" />,
 
-          @font-face {
-            font-family: 'Roboto';
-            font-weight: 400;
-            src: url('public/fonts/Roboto-Regular.ttf') format('truetype');
-          }
+    <div key="container" className="container">
+      <Routes />
 
-          @font-face {
-            font-family: 'Roboto';
-            font-weight: 600;
-            src: url('public/fonts/Roboto-Medium.ttf') format('truetype');
-          }
+      <style jsx global>{`
+        @font-face {
+          font-family: 'Roboto';
+          font-weight: 200;
+          src: url('public/fonts/Roboto-Light.ttf') format('truetype');
+        }
 
-          * {
-            margin: 0px;
-            outline: 0px;
-            border: 0px;
-            padding: 0px;
-          }
+        @font-face {
+          font-family: 'Roboto';
+          font-weight: 400;
+          src: url('public/fonts/Roboto-Regular.ttf') format('truetype');
+        }
 
-          html,
-          body,
-          #root {
-            height: 100%;
-            overflow: hidden;
-          }
+        @font-face {
+          font-family: 'Roboto';
+          font-weight: 600;
+          src: url('public/fonts/Roboto-Medium.ttf') format('truetype');
+        }
 
-          body,
-          #root {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-          }
+        * {
+          margin: 0px;
+          outline: 0px;
+          border: 0px;
+          padding: 0px;
+        }
 
-          body {
-            background-color: #000000;
-            font-family: 'Roboto', sans-serif;
-            color: #FFFFFF;
-          }
-        `}</style>
+        html,
+        body,
+        #root {
+          height: 100%;
+          overflow: hidden;
+        }
 
-        <style jsx>{`
-          .container {
-            position: relative;
-            display: flex;
-            width: 100%;
-            height: 100%;
-          }
-        `}</style>
-      </div>,
-    ];
-  }
+        body,
+        #root {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+        }
+
+        body {
+          background-color: ${config.themeColor};
+          font-family: 'Roboto', sans-serif;
+          color: #FFFFFF;
+        }
+
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+
+        button {
+          display: flex;
+          border-radius: 4px;
+          padding: 4px 8px;
+          background-color: transparent;
+          font: inherit;
+          color: #FFFFFF;
+          cursor: pointer;
+        }
+      `}</style>
+
+      <style jsx>{`
+        .container {
+          flex: 1;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          background-color: #303030;
+        }
+      `}</style>
+    </div>,
+  ];
 }
 
 /**

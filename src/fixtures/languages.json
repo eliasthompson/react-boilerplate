@@ -1,6 +1,6 @@
 {
-  "en": { "hello": "hello", "langCode": "Language Code:" },
-  "es": { "hello": "hola", "langCode": "Código de Lenguaje:" },
-  "ja": { "hello": "こんにちは", "langCode": "言語コード：" },
-  "ar": { "hello": "مرحبا", "langCode": "رمز اللغة:" }
+  "en": { "languageName": "English", "hello": "Hello", "langCode": "Language Code:", "login": "Login", "logout": "Logout", "settings": "Settings", "notFound": "Not Found" },
+  "es": { "languageName": "Español", "hello": "Hola", "langCode": "Código de Lenguaje:", "login": "Iniciar", "logout": "Cerrar", "settings": "Ajustes", "notFound": "Extraviado" },
+  "ja": { "languageName": "日本語", "hello": "こんにちは", "langCode": "言語コード：", "login": "ログイン", "logout": "ログアウト", "settings": "設定", "notFound": "見つかりません" },
+  "ar": { "languageName": "عربى", "hello": "مرحبا", "langCode": "رمز اللغة:", "login": "دخول", "logout": "الخروج", "settings": "إعدادات", "notFound": "غير معثور عليه", "rtl": true }
 }

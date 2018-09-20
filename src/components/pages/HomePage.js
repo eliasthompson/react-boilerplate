@@ -1,33 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import languages from '../../fixtures/languages.json';
 import { updateConfig } from '../../actions/config';
 
 /**
- * An example component control component to showcase Redux and Styled JSX.
+ * A home page component.
  * @extends {React.Component}
  */
-export class ExampleComponent extends Component {
-  /** The constructor assigns the this context to custom methods. */
+export class HomePage extends Component {
+  /**
+  * The constructor updates the Config Redux slice with the current language from the router.
+  * @param {Object} props - Component props
+  */
   constructor(props) {
     super(props);
 
     /* istanbul ignore next */
-    this.handleLanguageChange = this.handleLanguageChange.bind(this);
-
     if (props.match.params.lang !== props.lang) props.updateConfig({ lang: props.match.params.lang });
-  }
-
-  /** This method handles changing the language in the Config Redux slice. */
-  handleLanguageChange() {
-    const langs = _.keys(languages);
-    let newLangIndex = (_.indexOf(langs, this.props.lang) + 1);
-
-    if (newLangIndex === langs.length) newLangIndex = 0;
-
-    this.props.updateConfig({ lang: langs[newLangIndex] });
   }
 
   /**
@@ -36,11 +26,13 @@ export class ExampleComponent extends Component {
    */
   render() {
     return (
-      <div className="example-component">
-        <span onClick={ this.handleLanguageChange }>{ languages[this.props.lang].hello }</span>
+      <section>
+        { languages[this.props.lang].hello }
+        <span>{ languages[this.props.lang].langCode } { this.props.lang }</span>
 
         <style jsx>{`
-          .example-component {
+          section {
+            flex: 1;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -48,33 +40,18 @@ export class ExampleComponent extends Component {
             align-content: center;
             justify-content: center;
             width: 100%;
-            height: 100%;
             text-align: center;
 
             span {
-              width: 100%;
-              font-weight: 200;
-              cursor: pointer;
-              user-select: none;
-              transform: scale(1);
-              transition: transform 0.5s ease;
-
-              &:hover {
-                transform: scale(1.1);
-              }
-            }
-
-            &::after {
               position: absolute;
               bottom: 20px;
               opacity: 0.5;
               font-weight: 400;
               font-size: 10px;
-              content: '${languages[this.props.lang].langCode} ${this.props.lang}';
             }
           }
         `}</style>
-      </div>
+      </section>
     );
   }
 
@@ -88,7 +65,7 @@ export class ExampleComponent extends Component {
 }
 
 /**
- * This function maps portions of the Redux state to the ExampleComponent component's props.
+ * This function maps portions of the Redux state to the HomePage component's props.
  * @param {Object} state - Redux state
  * @return {Object} returns new Redux state
  * @property {string} lang language code
@@ -100,4 +77,4 @@ export const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { updateConfig },
-)(ExampleComponent);
+)(HomePage);

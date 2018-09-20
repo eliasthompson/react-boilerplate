@@ -3,9 +3,9 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 
-import { ExampleComponent, mapStateToProps } from '../../../src/components/controls/ExampleComponent';
+import { LanguageToggle, mapStateToProps } from '../../../src/components/controls/LanguageToggle';
 
-describe('Component: ExampleComponent', function () {
+describe('Component: LanguageToggle', function () {
   const sandbox = sinon.createSandbox();
   const updateConfigSpy = sandbox.spy();
   const historyReplaceSpy = sandbox.spy();
@@ -24,7 +24,7 @@ describe('Component: ExampleComponent', function () {
   let wrapper;
 
   beforeEach(function () {
-    wrapper = shallow(<ExampleComponent {...defaultProps} />);
+    wrapper = shallow(<LanguageToggle {...defaultProps} />);
   });
 
   afterEach(function () {
@@ -47,7 +47,7 @@ describe('Component: ExampleComponent', function () {
       };
 
       wrapper.unmount();
-      wrapper = shallow(<ExampleComponent {...props} />);
+      wrapper = shallow(<LanguageToggle {...props} />);
       expect(updateConfigSpy).to.have.been.calledOnce;
     });
 
@@ -103,7 +103,7 @@ describe('Component: ExampleComponent', function () {
 
   describe('render', function () {
     it('renders correctly', function () {
-      expect(wrapper.find('.example-component')).to.have.length(1);
+      expect(wrapper.find('.language-toggle')).to.have.length(1);
     });
   });
 
