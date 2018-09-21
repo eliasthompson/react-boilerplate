@@ -10,7 +10,7 @@ jobs:
           name: Installing
           command: |
             npm install
-            npm install -g aws-sdk
+            sudo npm install -g aws-sdk
       # - run:
       #     name: Testing
       #     command: npm run test
