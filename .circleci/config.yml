@@ -9,9 +9,9 @@ jobs:
       - run:
           name: Installing
           command: npm install
-      - run:
-          name: Testing
-          command: npm run test
+      # - run:
+      #     name: Testing
+      #     command: npm run test
       - run:
           name: Deploying
           command: aws elasticbeanstalk deploy react-boilerplate-$CIRCLE_BRANCH
