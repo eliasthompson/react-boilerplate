@@ -36,8 +36,8 @@
     "test:watch": "nodemon --ext .js -w ./src/ -w ./test/ --exec \"npm run lint --silent && istanbul cover node_modules/mocha/bin/_mocha -- --opts ./test/mocha.opts || true\"",
     "docs": "esdoc -c esdoc.json",
     "docs:watch": "nodemon --ext .js -w ./src/ --exec \"esdoc -c esdoc.json || true\"",
-    "dev": "webpack-serve",
     "build": "webpack",
+    "dev": "webpack-serve",
     "prod": "http-server build"
   },
   "devDependencies": {
