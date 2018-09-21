@@ -3,8 +3,15 @@ jobs:
   build:
     docker:
       - image: circleci/node:8.12
-    working_directory: ~/repo
+    working_directory: ~/react-boilerplate
     steps:
       - checkout
-      - run: npm install
-      - run: npm run test
+      - run:
+        name: Installing
+        command: npm install
+      - run:
+        name: Testing
+        command: npm run test
+      - run:
+        name: Deploying
+        command: aws elasticbeanstalk deploy react-boilerplate-$CIRCLE_BRANCH
