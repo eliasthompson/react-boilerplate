@@ -31,14 +31,14 @@
   },
   "scripts": {
     "start": "npm run dev",
+    "dev": "node_modules/.bin/webpack-serve",
     "lint": "eslint \"./src/*.js\" \"./src/**/*.js\" \"./test/*.js\" \"./test/**/*.js\"",
     "test": "npm run lint --silent && istanbul cover node_modules/mocha/bin/_mocha -- --opts ./test/mocha.opts",
     "test:watch": "nodemon --ext .js -w ./src/ -w ./test/ --exec \"npm run lint --silent && istanbul cover node_modules/mocha/bin/_mocha -- --opts ./test/mocha.opts || true\"",
     "docs": "esdoc -c esdoc.json",
     "docs:watch": "nodemon --ext .js -w ./src/ --exec \"esdoc -c esdoc.json || true\"",
-    "build": "NODE_ENV=production node_modules/.bin/webpack",
-    "dev": "node_modules/.bin/webpack-serve",
-    "prod": "http-server build"
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack",
+    "build:serve": "NODE_ENV=production ./node_modules/.bin/webpack && http-server build"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
