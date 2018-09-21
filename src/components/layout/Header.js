@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import UserButton from '../controls/UserButton';
+import UserMenu from '../controls/UserMenu';
 import config from '../../../config.json';
 
 /**
@@ -14,7 +14,7 @@ export function Header(props) {
   return (
     <header>
       <Link className="logo-link" to={ `/${props.lang}` }><img src="public/images/logo.png" alt="Logo" /></Link>
-      <UserButton />
+      <UserMenu />
 
       <style jsx>{`
         header {
@@ -26,11 +26,13 @@ export function Header(props) {
           height: 42px;
           padding: 0 10px;
           background-color: ${config.themeColor};
+          box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 
           :global(.logo-link) {
             height: 100%;
 
             :global(img) {
+              margin-left: -10px;
               height: 100%;
             }
           }
@@ -47,7 +49,7 @@ export function Header(props) {
  * @property {string} lang language code
  */
 export const mapStateToProps = state => ({
-  lang: state.config.lang,
+  lang: state.userData.settings.lang,
 });
 
 export default connect(

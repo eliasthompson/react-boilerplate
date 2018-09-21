@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import languages from '../../fixtures/languages.json';
-import { updateConfig } from '../../actions/config';
+import { updateUserData } from '../../actions/userData';
 
 /**
  * A language toggle control component to showcase Redux and Styled JSX.
@@ -18,14 +18,14 @@ export class LanguageToggle extends Component {
     this.handleLanguageChange = this.handleLanguageChange.bind(this);
   }
 
-  /** This method handles changing the language in the Config Redux slice. */
+  /** This method handles changing the language in the User Data Redux slice. */
   handleLanguageChange() {
     const langs = _.keys(languages);
     let newLangIndex = (_.indexOf(langs, this.props.lang) + 1);
 
     if (newLangIndex === langs.length) newLangIndex = 0;
 
-    this.props.updateConfig({ lang: langs[newLangIndex] });
+    this.props.updateUserData({ settings: { lang: langs[newLangIndex] } });
   }
 
   /**
@@ -45,7 +45,6 @@ export class LanguageToggle extends Component {
             align-content: center;
             height: 32px;
             background-color: #424242;
-            transition: background-color 0.2s ease;
 
             &::before {
               position: absolute;
@@ -55,6 +54,7 @@ export class LanguageToggle extends Component {
               height: 100%;
               border-radius: 4px;
               content: '';
+              transition: background-color 0.2s ease;
             }
 
             &:hover {
@@ -76,10 +76,10 @@ export class LanguageToggle extends Component {
  * @property {string} lang language code
  */
 export const mapStateToProps = state => ({
-  lang: state.config.lang,
+  lang: state.userData.settings.lang,
 });
 
 export default connect(
   mapStateToProps,
-  { updateConfig },
+  { updateUserData },
 )(LanguageToggle);

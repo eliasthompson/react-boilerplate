@@ -1,40 +1,48 @@
 import React, { Component } from 'react';
-import jwt from 'jsonwebtoken';
 import gravatar from 'gravatar';
-import { Link } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
+import LoginModal from '../modals/LoginModal';
 import languages from '../../fixtures/languages.json';
+import { showModal, updateUi } from '../../actions/ui';
+import { updateUserData } from '../../actions/userData';
 
 /**
  * A user button control component that allows login, logout, and user options.
  * @extends {React.Component}
  */
-export class UserButton extends Component {
+export class UserMenu extends Component {
   /**
   * The constructor sets the default state and assigns the this context to custom methods.
   * @param {Object} props - Component props
   */
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     /* istanbul ignore next */
-    this.state = {
-      open: false,
-    };
-
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   handleLogin() {
-
+    this.props.showModal(<LoginModal />);
   }
 
   handleLogout() {
+    this.props.history.replace(`/${this.props.lang}`);
+    this.props.updateUi({ userMenuOpen: false });
+    this.props.updateUserData({ token: '' });
+  }
 
+  handleClickOutside(e) {
+    if (this.buttonRef && this.menuRef && !this.buttonRef.contains(e.target) && !this.menuRef.contains(e.target)) {
+      this.props.updateUi({ userMenuOpen: false });
+    }
   }
 
   /**
@@ -42,7 +50,7 @@ export class UserButton extends Component {
    * @return {React.Component} returns a React element
    */
   render() {
-    const user = jwt.decode(window.localStorage.jwtToken) || {};
+    const user = jwt.decode(this.props.token) || {};
     const menuItems = [
       <Link key="settings" to={ `/${this.props.lang}/settings` }>
         <li>
@@ -55,17 +63,17 @@ export class UserButton extends Component {
         { languages[this.props.lang].logout }
       </li>,
     ];
-    let buttonClass = (this.state.open) ? 'open' : '';
+    let buttonClass = (this.props.open) ? 'open' : '';
     let handleButtonClick = this.handleLogin;
     let buttonContent = [
-      <FontAwesomeIcon icon={ faSignInAlt } />,
-      languages[this.props.lang].login,
+      <FontAwesomeIcon key="icon" icon={ faSignInAlt } />,
+      <span key="text">{ languages[this.props.lang].login }</span>,
     ];
 
     if (languages[this.props.lang].rtl) buttonClass += ' rtl';
     if (user.name && user.email) {
       handleButtonClick = () => {
-        this.setState({ open: !this.state.open });
+        this.props.updateUi({ userMenuOpen: !this.props.open });
       };
       buttonContent = [
         <img key="gravatar" src={ gravatar.url(user.email, { size: 48, default: 'mp' }) } />,
@@ -75,11 +83,11 @@ export class UserButton extends Component {
 
     return (
       <div className={ buttonClass }>
-        <button onClick={ handleButtonClick }>
+        <button ref={ (node) => { this.buttonRef = node; } } onClick={ handleButtonClick }>
           { buttonContent }
         </button>
 
-        <ul>
+        <ul ref={ (node) => { this.menuRef = node; } }>
           { menuItems }
         </ul>
 
@@ -92,8 +100,7 @@ export class UserButton extends Component {
               align-items: center;
               align-content: center;
               height: 32px;
-              background-color: rgba(0, 0, 0, 0.2);
-              transition: background-color 0.2s ease;
+              background-color: rgba(255, 255, 255, 0.15);
 
               :global(svg) {
                 margin: 0 8px 0 0;
@@ -106,8 +113,8 @@ export class UserButton extends Component {
                 border-radius: 4px;
               }
 
-              &:hover {
-                background-color: rgba(0, 0, 0, 0.3);
+              &:active {
+                background-color: rgba(0, 0, 0, 0.15);
               }
             }
 
@@ -198,19 +205,29 @@ export class UserButton extends Component {
       </div>
     );
   }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside, false);
+  }
+
+  componentWillMount() {
+    document.removeEventListener('mousedown', this.handleClickOutside, false);
+  }
 }
 
 /**
- * This function maps portions of the Redux state to the UserButton component's props.
+ * This function maps portions of the Redux state to the UserMenu component's props.
  * @param {Object} state - Redux state
  * @return {Object} returns new Redux state
  * @property {string} lang language code
  */
 export const mapStateToProps = state => ({
-  lang: state.config.lang,
+  open: state.ui.userMenuOpen,
+  token: state.userData.token,
+  lang: state.userData.settings.lang,
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
-  null,
-)(UserButton);
+  { showModal, updateUi, updateUserData },
+)(UserMenu));

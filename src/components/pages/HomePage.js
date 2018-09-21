@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import languages from '../../fixtures/languages.json';
-import { updateConfig } from '../../actions/config';
+import { updateUserData } from '../../actions/userData';
 
 /**
  * A home page component.
@@ -10,14 +10,14 @@ import { updateConfig } from '../../actions/config';
  */
 export class HomePage extends Component {
   /**
-  * The constructor updates the Config Redux slice with the current language from the router.
+  * The constructor updates the User Data Redux slice with the current language from the router.
   * @param {Object} props - Component props
   */
   constructor(props) {
     super(props);
 
     /* istanbul ignore next */
-    if (props.match.params.lang !== props.lang) props.updateConfig({ lang: props.match.params.lang });
+    if (props.match.params.lang !== props.lang) props.updateUserData({ settings: { lang: props.match.params.lang } });
   }
 
   /**
@@ -25,34 +25,7 @@ export class HomePage extends Component {
    * @return {React.Component} returns React element
    */
   render() {
-    return (
-      <section>
-        { languages[this.props.lang].hello }
-        <span>{ languages[this.props.lang].langCode } { this.props.lang }</span>
-
-        <style jsx>{`
-          section {
-            flex: 1;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            align-content: center;
-            justify-content: center;
-            width: 100%;
-            text-align: center;
-
-            span {
-              position: absolute;
-              bottom: 20px;
-              opacity: 0.5;
-              font-weight: 400;
-              font-size: 10px;
-            }
-          }
-        `}</style>
-      </section>
-    );
+    return <h1>{ languages[this.props.lang].hello }</h1>;
   }
 
   /**
@@ -71,10 +44,10 @@ export class HomePage extends Component {
  * @property {string} lang language code
  */
 export const mapStateToProps = state => ({
-  lang: state.config.lang,
+  lang: state.userData.settings.lang,
 });
 
 export default connect(
   mapStateToProps,
-  { updateConfig },
+  { updateUserData },
 )(HomePage);

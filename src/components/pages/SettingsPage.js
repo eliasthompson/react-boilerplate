@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import LanguageToggle from '../controls/LanguageToggle';
-// import languages from '../../fixtures/languages.json';
-import { updateConfig } from '../../actions/config';
+import languages from '../../fixtures/languages.json';
+import { updateUserData } from '../../actions/userData';
 
 /**
  * A settings page component.
@@ -11,40 +12,26 @@ import { updateConfig } from '../../actions/config';
  */
 export class SettingsPage extends Component {
   /**
-  * The constructor updates the Config Redux slice with the current language from the router.
+  * The constructor updates the User Settings Redux slice with the current language from the router.
   * @param {Object} props - Component props
   */
   constructor(props) {
     super(props);
 
     /* istanbul ignore next */
-    if (props.match.params.lang !== props.lang) props.updateConfig({ lang: props.match.params.lang });
+    if (props.match.params.lang !== props.lang) props.updateUserData({ settings: { lang: props.match.params.lang } });
   }
 
   /**
    * This method renders the component.
-   * @return {React.Component} returns React element
+   * @return {Array<React.Component>} returns an array of React elements
    */
   render() {
-    return (
-      <section>
-        <LanguageToggle />
-
-        <style jsx>{`
-          section {
-            flex: 1;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            align-content: center;
-            justify-content: center;
-            width: 100%;
-            text-align: center;
-          }
-        `}</style>
-      </section>
-    );
+    return [
+      <Helmet key="helmet"><title>{ languages[this.props.lang].settings }</title></Helmet>,
+      <h1 key="h1">{ languages[this.props.lang].settings }</h1>,
+      <LanguageToggle key="toggle" />,
+    ];
   }
 
   /**
@@ -63,10 +50,10 @@ export class SettingsPage extends Component {
  * @property {string} lang language code
  */
 export const mapStateToProps = state => ({
-  lang: state.config.lang,
+  lang: state.userData.settings.lang,
 });
 
 export default connect(
   mapStateToProps,
-  { updateConfig },
+  { updateUserData },
 )(SettingsPage);

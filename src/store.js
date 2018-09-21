@@ -9,9 +9,9 @@ import sagas from './sagas';
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   persistReducer({
-    key: 'config',
+    key: 'userData',
     version: 1,
-    whitelist: ['config'],
+    whitelist: ['userData'],
     storage,
   }, reducers),
   /* istanbul ignore next */ window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),

@@ -1,7 +1,11 @@
-import config from './config';
+import ui from './ui';
+import user from './user';
+import userData from './userData';
 // import slice from './slice';
 
 export default {
-  config,
+  ui,
+  user,
+  userData,
   // slice,
 };

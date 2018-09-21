@@ -35,7 +35,7 @@ export function Routes(props) {
  * @property {string} lang language code
  */
 export const mapStateToProps = state => ({
-  lang: state.config.lang,
+  lang: state.userData.settings.lang,
 });
 
 export default withRouter(connect(

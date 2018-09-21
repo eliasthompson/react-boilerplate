@@ -3,8 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
+import Modal from './Modal';
 import Header from './Header';
 import Routes from '../Routes';
+import languages from '../../fixtures/languages.json';
 import config from '../../../config.json';
 
 /**
@@ -13,15 +15,20 @@ import config from '../../../config.json';
  * @return {Array<React.Component>} returns array of React elements
  */
 export function Container(props) {
+  let className = 'container';
+  if (languages[props.lang].rtl) className += ' rtl';
+
   return [
     <Helmet key="helmet" titleTemplate={ `%s | ${config.name}` } defaultTitle={ config.name }>
       <html lang={ props.lang } />
     </Helmet>,
 
     <Header key="header" />,
+    <Modal key="modal" />,
 
-    <div key="container" className="container">
+    <div key="container" className={ className }>
       <Routes />
+      <span>{ languages[props.lang].langCode } { props.lang }</span>
 
       <style jsx global>{`
         @font-face {
@@ -76,6 +83,7 @@ export function Container(props) {
         }
 
         button {
+          position: relative;
           display: flex;
           border-radius: 4px;
           padding: 4px 8px;
@@ -83,6 +91,26 @@ export function Container(props) {
           font: inherit;
           color: #FFFFFF;
           cursor: pointer;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+          transition: background-color 0.2s ease, box-shadow 0.2s ease;
+
+          &:hover,
+          &:focus {
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+          }
+        }
+
+        input {
+          border-radius: 4px;
+          padding: 4px 8px;
+          background-color: rgba(0, 0, 0, 0.3);
+          font: inherit;
+          color: #FFFFFF;
+          box-shadow: inset 0 1px 3px rgba(0,0,0,0.12), inset 0 1px 2px rgba(0,0,0,0.24);
+
+          &:focus {
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.16), inset 0 3px 6px rgba(0,0,0,0.23);
+          }
         }
       `}</style>
 
@@ -92,8 +120,27 @@ export function Container(props) {
           position: relative;
           display: flex;
           flex-direction: column;
-          width: 100%;
+          align-items: flex-start;
+          align-content: flex-start;
+          width: calc(100% - 40px);
+          padding: 20px;
           background-color: #303030;
+
+          &.rtl {
+            align-items: flex-end;
+            align-content: flex-end;
+          }
+
+          span {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 20px;
+            opacity: 0.5;
+            text-align: center;
+            font-weight: 400;
+            font-size: 10px;
+          }
         }
       `}</style>
     </div>,
@@ -107,7 +154,7 @@ export function Container(props) {
  * @property {string} lang language code
  */
 export const mapStateToProps = state => ({
-  lang: state.config.lang,
+  lang: state.userData.settings.lang,
 });
 
 export default withRouter(connect(

@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import config from './config';
+import ui from './ui';
+import userData from './userData';
 // import slice from './slice';
 
 export default combineReducers({
-  config,
+  ui,
+  userData,
   // slice,
 });
