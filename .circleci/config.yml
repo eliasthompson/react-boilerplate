@@ -8,7 +8,9 @@ jobs:
       - checkout
       - run:
           name: Installing
-          command: npm install
+          command: |
+            npm install
+            npm install -g aws-sdk
       # - run:
       #     name: Testing
       #     command: npm run test
