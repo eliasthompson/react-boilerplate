@@ -9,11 +9,13 @@ jobs:
       - run:
           name: Installing
           command: |
-            sudo apt-get -y -qq install awscli
+            sudo apt-get -y -qq update
+            sudo apt-get install python-pip python-dev build-essential
+            sudo pip install awsebcli --upgrade
             npm install
       # - run:
       #     name: Testing
       #     command: npm run test
       - run:
           name: Deploying
-          command: aws elasticbeanstalk deploy react-boilerplate-$CIRCLE_BRANCH
+          command: eb deploy deploy react-boilerplate-$CIRCLE_BRANCH
