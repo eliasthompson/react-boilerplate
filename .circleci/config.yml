@@ -10,7 +10,7 @@ jobs:
           name: Installing
           command: |
             npm install
-            sudo npm install -g aws-sdk
+            pip install awscli --upgrade --user
       # - run:
       #     name: Testing
       #     command: npm run test
