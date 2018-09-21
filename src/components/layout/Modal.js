@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import LoginModal from '../modals/LoginModal';
 import languages from '../../fixtures/languages.json';
+import config from '../../../config.json';
 import { hideModal } from '../../actions/ui';
 
 /**
@@ -25,14 +27,18 @@ export class Modal extends Component {
   render() {
     let classNameShield = 'shield';
     let classNameModal = 'modal';
+    let content = null;
 
     if (this.props.visible) classNameShield += ' visible';
     if (languages[this.props.lang].rtl) classNameModal += ' rtl';
 
+    if (this.props.content === 'login') content = <LoginModal />;
+
     return (
       <div className={ classNameShield }>
         <div className={ classNameModal } ref={ (node) => { this.modalRef = node; } }>
-          { this.props.content }
+          <h2>{ languages[this.props.lang][this.props.content] }</h2>
+          { content }
         </div>
 
         <style jsx>{`
@@ -61,14 +67,34 @@ export class Modal extends Component {
               flex-direction: column;
               align-items: flex-start;
               align-content: flex-start;
+              overflow: hidden;
               border-radius: 4px;
-              padding: 20px;
+              padding: 0 20px 20px;
               background-color: #424242;
               box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+              h2 {
+                display: flex;
+                align-items: center;
+                align-content: center;
+                box-sizing: border-box;
+                width: calc(100% + 40px);
+                height: 42px;
+                margin: 0 -20px 20px;
+                padding: 0 20px;
+                background-color: ${config.themeColor};
+                font-size: 20px;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+              }
 
               &.rtl {
                 align-items: flex-end;
                 align-content: flex-end;
+
+                h2 {
+                  justify-content: flex-end;
+                  text-align: right;
+                }
               }
             }
           }

@@ -39,7 +39,6 @@ export const showModal = data => ({ type: SHOW_MODAL, data });
 
 /**
  * This function sends an action to Redux Saga to hide the  Modal and destroy its content.
- * @param {React.Component} data - a React elment
  * @return {Object} returns Redux action
  */
 export const hideModal = () => ({ type: HIDE_MODAL });

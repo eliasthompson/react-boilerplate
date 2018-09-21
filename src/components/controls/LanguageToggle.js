@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import Color from 'color';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import languages from '../../fixtures/languages.json';
+import config from '../../../config.json';
 import { updateUserData } from '../../actions/userData';
+
+const accentColor = new Color(config.accentColor);
 
 /**
  * A language toggle control component to showcase Redux and Styled JSX.
@@ -34,32 +38,19 @@ export class LanguageToggle extends Component {
    */
   render() {
     return (
-      <button onClick={ this.handleLanguageChange }>
+      <button className="action" onClick={ this.handleLanguageChange }>
         { languages[this.props.lang].languageName }
 
         <style jsx>{`
           button {
-            position: relative;
-            display: flex;
-            align-items: center;
-            align-content: center;
             height: 32px;
-            background-color: #424242;
+            margin-top: 8px;
 
-            &::before {
-              position: absolute;
-              top: 0;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              border-radius: 4px;
-              content: '';
-              transition: background-color 0.2s ease;
-            }
+            &.action {
+              background-color: ${config.accentColor};
 
-            &:hover {
-              &::before {
-                background-color: rgba(0, 0, 0, 0.1);
+              &:active {
+                background-color: ${accentColor.darken(0.1)};
               }
             }
           }

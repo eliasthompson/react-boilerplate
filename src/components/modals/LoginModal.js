@@ -7,7 +7,7 @@ import config from '../../../config.json';
 import { hideModal } from '../../actions/ui';
 import { loginUser } from '../../actions/user';
 
-const themeColor = new Color(config.themeColor);
+const accentColor = new Color(config.accentColor);
 
 /**
  * An error page component.
@@ -43,8 +43,6 @@ export class LoginModal extends Component {
     if (languages[this.props.lang].rtl) className = 'rtl';
 
     return [
-      <h2 key="h2">{ languages[this.props.lang].login }</h2>,
-
       <form key="form" className={ className } onSubmit={ this.handleLogin }>
         <div>
           <input
@@ -90,24 +88,46 @@ export class LoginModal extends Component {
 
               button {
                 height: 32px;
+                margin: 0 8px;
 
                 &.flat {
                   box-shadow: none;
                   font-weight: 600;
+
+                  &:hover,
+                  &:focus {
+                    background-color: rgba(0, 0, 0, 0.1);
+                  }
+
+                  &:active {
+                    background-color: rgba(0, 0, 0, 0.2);
+                  }
                 }
 
                 &.action {
-                  background-color: ${config.themeColor};
+                  background-color: ${config.accentColor};
 
                   &:active {
-                    background-color: ${themeColor.darken(0.1)};
+                    background-color: ${accentColor.darken(0.1)};
                   }
+                }
+
+                &:first-child {
+                  margin-left: 0;
+                }
+
+                &:last-child {
+                  margin-right: 0;
                 }
               }
 
               &.buttons {
                 justify-content: flex-end;
                 text-align: right;
+              }
+
+              &:first-child {
+                margin-top: 0;
               }
             }
 
@@ -121,6 +141,16 @@ export class LoginModal extends Component {
                 input {
                   direction: rtl;
 
+                  &:first-child {
+                    margin: 0 0 0 8px;
+                  }
+
+                  &:last-child {
+                    margin: 0 8px 0 0;
+                  }
+                }
+
+                button {
                   &:first-child {
                     margin: 0 0 0 8px;
                   }

@@ -21,10 +21,7 @@ export function* showModalSaga(action) {
   yield put(storeUi({ modalVisible: true }));
 }
 
-/**
- * This generator function calls the storeUi action with the data from every UI update.
- * @param {Object} action Redux action
- */
+/** This generator function calls the storeUi action with the data from every UI update. */
 export function* hideModalSaga() {
   yield put(storeUi({ modalVisible: false }));
   yield delay(200);

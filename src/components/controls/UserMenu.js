@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
-import LoginModal from '../modals/LoginModal';
 import languages from '../../fixtures/languages.json';
 import { showModal, updateUi } from '../../actions/ui';
 import { updateUserData } from '../../actions/userData';
@@ -30,7 +29,7 @@ export class UserMenu extends Component {
   }
 
   handleLogin() {
-    this.props.showModal(<LoginModal />);
+    this.props.showModal('login');
   }
 
   handleLogout() {
@@ -100,7 +99,8 @@ export class UserMenu extends Component {
               align-items: center;
               align-content: center;
               height: 32px;
-              background-color: rgba(255, 255, 255, 0.15);
+              font-weight: 600;
+              box-shadow: none;
 
               :global(svg) {
                 margin: 0 8px 0 0;
@@ -113,8 +113,13 @@ export class UserMenu extends Component {
                 border-radius: 4px;
               }
 
+              &:hover,
+              &:focus {
+                background-color: rgba(0, 0, 0, 0.1);
+              }
+
               &:active {
-                background-color: rgba(0, 0, 0, 0.15);
+                background-color: rgba(0, 0, 0, 0.2);
               }
             }
 
@@ -130,6 +135,7 @@ export class UserMenu extends Component {
               height: 0px;
               border-radius: 4px;
               background-color: #424242;
+              box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
               transition: height 0.2s ease;
 
               :global(li) {
@@ -141,6 +147,7 @@ export class UserMenu extends Component {
                 min-height: 32px;
                 padding: 4px 8px;
                 cursor: pointer;
+                transition: background-color 0.2s ease;
 
                 :global(svg) {
                   margin: 0 8px 0 0;
@@ -193,7 +200,7 @@ export class UserMenu extends Component {
 
             &.open {
               button {
-                background-color: rgba(0, 0, 0, 0.3);
+                background-color: rgba(0, 0, 0, 0.2);
               }
 
               ul {
