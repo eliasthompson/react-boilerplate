@@ -9,8 +9,7 @@ jobs:
       - run:
           name: Installing
           command: |
-            apt install python-pip python-dev
-            pip install awscli --upgrade --user
+            sudo apt-get -y -qq install awscli --upgrade --user
             npm install
       # - run:
       #     name: Testing
