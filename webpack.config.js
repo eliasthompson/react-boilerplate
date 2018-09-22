@@ -3,7 +3,7 @@ const path = require('path');
 const convert = require('koa-connect');
 const history = require('connect-history-api-fallback');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+// const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -19,12 +19,12 @@ const plugins = [
     template: './index.template.html',
     noscript: 'You need to enable JavaScript to use this application.',
   }),
-  new FaviconsWebpackPlugin({
-    logo: './public/images/logo.png',
-    prefix: 'images/icons/[hash]/',
-    background: config.themeColor,
-    title: config.shortName,
-  }),
+  // new FaviconsWebpackPlugin({
+  //   logo: './public/images/logo.png',
+  //   prefix: 'images/icons/[hash]/',
+  //   background: config.themeColor,
+  //   title: config.shortName,
+  // }),
   new WebpackPwaManifest({
     name: config.name,
     short_name: config.shortName,
