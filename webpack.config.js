@@ -3,9 +3,10 @@ const path = require('path');
 const convert = require('koa-connect');
 const history = require('connect-history-api-fallback');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const config = require('./config.json');
 
@@ -16,15 +17,15 @@ const plugins = [
     hash: true,
     title: config.name,
     lang: config.defaultLang,
+    noscript: config.noscript,
     template: './index.template.html',
-    noscript: 'You need to enable JavaScript to use this application.',
   }),
-  // new FaviconsWebpackPlugin({
-  //   logo: './public/images/logo.png',
-  //   prefix: 'images/icons/[hash]/',
-  //   background: config.themeColor,
-  //   title: config.shortName,
-  // }),
+  new FaviconsWebpackPlugin({
+    logo: './public/images/logo.png',
+    prefix: 'images/icons/[hash]/',
+    background: config.themeColor,
+    title: config.shortName,
+  }),
   new WebpackPwaManifest({
     name: config.name,
     short_name: config.shortName,
@@ -48,11 +49,14 @@ const plugins = [
 ];
 
 if (process.env.NODE_ENV === 'production') {
-  plugins.push(
+  [
+    new CleanWebpackPlugin([
+      './build',
+    ]),
     new CopyWebpackPlugin([
       { from: 'public', to: 'public' },
     ]),
-  );
+  ].concat(plugins);
 }
 
 module.exports = {

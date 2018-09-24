@@ -4,5 +4,5 @@ branch-defaults:
 global:
   application_name: React Boilerplate
   default_platform: Node.js 8.12
-  default_region: us-east-2
+  default_region: $AWS_REGION
   sc: git

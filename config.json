@@ -4,5 +4,6 @@
   "themeColor": "#339900",
   "accentColor": "#3559A0",
   "defaultLang": "en",
-  "apiUrl": "//localhost:8080/"
+  "apiUrl": "//localhost:8080/",
+  "noscript": "You need to enable JavaScript to use this application."
 }
