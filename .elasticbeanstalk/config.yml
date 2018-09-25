@@ -3,20 +3,9 @@ branch-defaults:
     environment: react-boilerplate-docker-master
   master:
     environment: react-boilerplate-$CIRCLE_BRANCH
-environment-defaults:
-  react-boilerplate-docker-master:
-    branch: null
-    repository: null
 global:
   application_name: React Boilerplate
-  default_ec2_keyname: null
   default_platform: arn:aws:elasticbeanstalk:us-east-2::platform/Docker running on
     64bit Amazon Linux/2.12.2
   default_region: us-east-2
-  include_git_submodules: true
-  instance_profile: null
-  platform_name: null
-  platform_version: null
-  profile: eb-cli
   sc: git
-  workspace_type: Application
