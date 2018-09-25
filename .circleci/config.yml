@@ -18,4 +18,4 @@ jobs:
       #     command: npm run test
       - run:
           name: Deploying
-          command: eb deploy react-boilerplate-$CIRCLE_BRANCH
+          command: eb deploy react-boilerplate-$CIRCLE_BRANCH-master
